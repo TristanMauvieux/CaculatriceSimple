@@ -1,18 +1,30 @@
 package fr.diginamic.calculatriceSimple.classe;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class Calculatrice {
 	
+
+
+
 	//private ArrayList<String> cacul;
 	private float nombrePremier = 0;
-	private float nombresecond = 0;
+	private float nombreSecond = 0;
 	private String operante = "";
 	private float resultat = -1;
-	
-	
+	/**
+	 * 
+	 */
 	public Calculatrice() {
+		
+	}
+	
+	public Calculatrice(float nombrePremier, String operation, float NombreSeconde) {
+		this.nombrePremier = nombrePremier;
+		this.nombreSecond = NombreSeconde;
+		this.operante = operation;
 		
 	}
 
@@ -21,13 +33,34 @@ public class Calculatrice {
 		
 		System.out.println("entré votre Premier nombre");
 		nombrePremier = sc.nextFloat();
-		System.out.println("entrée votre opération");
-		operante = sc.nextLine();
+		boolean notOk = true;
+		do {
+			System.out.println("entrée votre opération");
+
+			operante = sc.nextLine();
+			if (!StringUtils.equals(operante, "")) {
+				notOk = false;
+			}
+		}
+		while(notOk );
 		System.out.println("entrée votre Second nombre");
-		nombresecond = sc.nextFloat();		
+		nombreSecond = sc.nextFloat();		
+		sc.close();
 	}
 	
 	public float calcul() {
+		
+		if (StringUtils.equals(operante, "+")) {
+			addition();
+		}else if (StringUtils.equals(operante, "-")) {
+			soutraction();
+		}else if (StringUtils.equals(operante, "*")) {
+			multiplication();
+		}else if (StringUtils.equals(operante, "/")) {
+			division();
+		}else {
+			System.out.println("Votre opération n'est pas valide");
+		}
 		
 		return resultat;
 	}
@@ -38,23 +71,23 @@ public class Calculatrice {
 	 * la fonction du calcul va retourné le résultat
 	 * @return
 	 */
-	public float addition() {
-		return resultat;
+	private void addition() {
+		resultat = nombrePremier+nombreSecond;
 
 	}
 	
-	public float soutraction() {
-		return resultat;
+	private void soutraction() {
+		resultat = nombrePremier-nombreSecond;
 
 	}
 	
-	public float multiplication() {
-		return resultat;
+	private void multiplication() {
+		resultat = nombrePremier*nombreSecond;
 
 	}
 	
-	public float division() {
-		return resultat;
+	private void division() {
+		resultat = nombrePremier/nombreSecond;
 
 	}
 	
@@ -70,12 +103,12 @@ public class Calculatrice {
 
 
 	public float getNombresecond() {
-		return nombresecond;
+		return nombreSecond;
 	}
 
 
-	public void setNombresecond(float nombresecond) {
-		this.nombresecond = nombresecond;
+	public void setNombresecond(float nombreSecond) {
+		this.nombreSecond = nombreSecond;
 	}
 
 
@@ -87,6 +120,19 @@ public class Calculatrice {
 	public void setResultat(float resultat) {
 		this.resultat = resultat;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Calculatrice [nombrePremier=");
+		builder.append(nombrePremier);
+		builder.append(", nombreSecond=");
+		builder.append(nombreSecond);
+		builder.append(", operante=");
+		builder.append(operante);
+		builder.append(", resultat=");
+		builder.append(resultat);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }
