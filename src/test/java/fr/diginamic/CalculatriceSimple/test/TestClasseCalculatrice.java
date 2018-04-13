@@ -6,7 +6,10 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 public class TestClasseCalculatrice extends TestCase {
-
+/**
+ * Liste de test à remplir
+ * @return
+ */
 	public static Test suite() {
 		return new TestSuite(TestClasseCalculatrice.class);
 	}
